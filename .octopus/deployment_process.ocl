@@ -37,7 +37,11 @@ step "run-gcloud-in-a-script" {
             Octopus.Action.GoogleCloud.UseVMServiceAccount = "False"
             Octopus.Action.GoogleCloud.Zone = "australia-southeast1-a"
             Octopus.Action.GoogleCloudAccount.Variable = "gcs-cert"
-            Octopus.Action.Script.ScriptBody = "gsutil cp * gs://chester-world"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                git clone https://github.com/trickbooter/chesters-world /tmp/source
+                
+                gsutil cp /tmp/source/* gs://chester-world
+                EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "Bash"
         }
