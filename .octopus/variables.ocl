@@ -1,0 +1,5 @@
+variable "gcs-cert" {
+    type = "GoogleCloudAccount"
+
+    value "chesters-world-cred" {}
+}
