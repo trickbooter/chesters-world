@@ -24,3 +24,23 @@ step "copy-to-gcs" {
         worker_pool = "hosted-ubuntu"
     }
 }
+
+step "run-gcloud-in-a-script" {
+    name = "Run gcloud in a Script"
+
+    action {
+        action_type = "Octopus.GoogleCloudScripting"
+        properties = {
+            Octopus.Action.GoogleCloud.ImpersonateServiceAccount = "False"
+            Octopus.Action.GoogleCloud.Project = "chester-world"
+            Octopus.Action.GoogleCloud.Region = "australia-southeast1"
+            Octopus.Action.GoogleCloud.UseVMServiceAccount = "False"
+            Octopus.Action.GoogleCloud.Zone = "australia-southeast1-a"
+            Octopus.Action.GoogleCloudAccount.Variable = "gcs-cert"
+            Octopus.Action.Script.ScriptBody = "gsutil cp * gs://chester-world"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
+        }
+        worker_pool = "hosted-ubuntu"
+    }
+}
